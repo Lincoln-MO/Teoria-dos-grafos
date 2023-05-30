@@ -9,7 +9,7 @@ typedef struct {
     int numVertices;
     int numArestas;
 } Grafo;
-
+// Cria a matriz de adjacências do grafo
 Grafo* criaMatriz(int numVertices) {
     Grafo* grafo = (Grafo*)malloc(sizeof(Grafo));
     grafo->numVertices = numVertices;
@@ -27,7 +27,7 @@ Grafo* criaMatriz(int numVertices) {
 
     return grafo;
 }
-
+// Cria a matriz de incidência do grafo
 Grafo* criaMatrizIncidencia(int numVertices, int numArestas) {
     Grafo* grafo = (Grafo*)malloc(sizeof(Grafo));
     grafo->numVertices = numVertices;
@@ -46,17 +46,17 @@ Grafo* criaMatrizIncidencia(int numVertices, int numArestas) {
 
     return grafo;
 }
-
+// Adiciona uma aresta na matriz de adjacências do grafo
 void adicionaAresta(Grafo* grafo, int u, int v) {
     grafo->matriz[u][v] = 1;
     grafo->matriz[v][u] = 1; // se o grafo for não-direcionado
 }
-
+// Adiciona uma aresta na matriz de incidência do grafo
 void adicionaArestaIncidencia(Grafo* grafo, int u, int v, int aresta) {
     grafo->matriz[u][aresta] = 1;
     grafo->matriz[v][aresta] = 1;
 }
-
+// Imprime a matriz de adjacências do grafo
 void imprimeMatrizAdjacencias(Grafo* grafo) {
     printf("Matriz de adjacencias:\n");
     for (int i = 0; i < grafo->numVertices; i++) {
@@ -66,7 +66,7 @@ void imprimeMatrizAdjacencias(Grafo* grafo) {
         printf("\n");
     }
 }
-
+// Imprime a matriz de incidência do grafo
 void imprimeMatrizIncidencia(Grafo* grafo) {
     printf("Matriz de incidencia:\n");
     for (int i = 0; i < grafo->numVertices; i++) {
@@ -76,7 +76,7 @@ void imprimeMatrizIncidencia(Grafo* grafo) {
         printf("\n");
     }
 }
-
+// Libera a memória ocupada pela matriz de adjacências do grafo
 void liberaMatriz(Grafo* grafo) {
     for (int i = 0; i < grafo->numVertices; i++) {
         free(grafo->matriz[i]);
@@ -84,7 +84,7 @@ void liberaMatriz(Grafo* grafo) {
     free(grafo->matriz);
     free(grafo);
 }
-
+// Verifica o tipo de grafo (grafo simples, pseudografo, multigrafo)
 string verificaTipoGrafo(Grafo* grafo) {
     int numArestas = 0;
     int numLoops = 0;
@@ -112,7 +112,7 @@ string verificaTipoGrafo(Grafo* grafo) {
         return "grafo simples";
     }
 }
-
+// Função auxiliar para realizar uma busca em profundidade (DFS)
 void dfs(Grafo* grafo, int vertice, bool* visitado) {
     visitado[vertice] = true;
 
@@ -122,7 +122,7 @@ void dfs(Grafo* grafo, int vertice, bool* visitado) {
         }
     }
 }
-
+// Verifica se o grafo é conexo
 bool verificaConexo(Grafo* grafo) {
     bool* visitado = new bool[grafo->numVertices];
     for (int i = 0; i < grafo->numVertices; i++) {
@@ -139,9 +139,7 @@ bool verificaConexo(Grafo* grafo) {
 
     return true;
 }
-
-
-
+// Verifica se o grafo é completo
 bool verificaCompleto(Grafo* grafo) {
     for (int i = 0; i < grafo->numVertices; i++) {
         for (int j = 0; j < grafo->numVertices; j++) {
@@ -153,11 +151,11 @@ bool verificaCompleto(Grafo* grafo) {
 
     return true;
 }
-
+// Calcula a ordem do grafo (número de vértices)
 int calculaOrdem(Grafo* grafo) {
     return grafo->numVertices;
 }
-
+// Calcula o tamanho do grafo (número de arestas)
 int calculaTamanho(Grafo* grafo) {
     int tamanho = 0;
     for (int i = 0; i < grafo->numVertices; i++) {
@@ -170,7 +168,7 @@ int calculaTamanho(Grafo* grafo) {
 
     return tamanho;
 }
-
+//Funcao para calcular o grau do vertice
 int calculaGrauVertice(Grafo* grafo, int vertice) {
     int grau = 0;
     for (int i = 0; i < grafo->numVertices; i++) {
@@ -181,13 +179,56 @@ int calculaGrauVertice(Grafo* grafo, int vertice) {
 
     return grau;
 }
-
+//Imprime os graus de todos os vertices do grafo
 void imprimeGrausVertices(Grafo* grafo) {
     printf("Grau de cada vertice:\n");
     for (int i = 0; i < grafo->numVertices; i++) {
         int grau = calculaGrauVertice(grafo, i);
         printf("Vertice %d: %d\n", i, grau);
     }
+}
+//A função verificaCicloDFS realiza uma busca em profundidade modificada para detectar a presença de ciclos no grafo.
+bool verificaCicloDFS(Grafo* grafo, int vertice, bool* visitado, bool* pilhaRecursao) {
+    visitado[vertice] = true;
+    pilhaRecursao[vertice] = true;
+
+    for (int i = 0; i < grafo->numVertices; i++) {
+        if (grafo->matriz[vertice][i] == 1) {
+            if (!visitado[i] && verificaCicloDFS(grafo, i, visitado, pilhaRecursao)) {
+                return true;
+            } else if (pilhaRecursao[i]) {
+                return true;
+            }
+        }
+    }
+
+    pilhaRecursao[vertice] = false;
+    return false;
+}
+/* A função verificaCiclo percorre todos os vértices do grafo e chama verificaCicloDFS para cada vértice não visitado. 
+Se um ciclo for encontrado em qualquer chamada da função, ela retorna true, indicando a presença de ciclos */
+bool verificaCiclo(Grafo* grafo) {
+    bool* visitado = new bool[grafo->numVertices];
+    bool* pilhaRecursao = new bool[grafo->numVertices];
+    for (int i = 0; i < grafo->numVertices; i++) {
+        visitado[i] = false;
+        
+        pilhaRecursao[i] = false;
+    }
+
+    for (int i = 0; i < grafo->numVertices; i++) {
+        if (!visitado[i]) {
+            if (verificaCicloDFS(grafo, i, visitado, pilhaRecursao)) {
+                delete[] visitado;
+                delete[] pilhaRecursao;
+                return true;
+            }
+        }
+    }
+
+    delete[] visitado;
+    delete[] pilhaRecursao;
+    return false;
 }
 
 int main() {
@@ -225,6 +266,7 @@ int main() {
 
     string tipoGrafo = verificaTipoGrafo(grafo);
     cout << "Tipo de grafo: " << tipoGrafo << endl;
+    cout << "\n";
 
     bool conexo = verificaConexo(grafo);
     if (conexo) {
@@ -254,6 +296,15 @@ int main() {
 
     imprimeGrausVertices(grafo);
     cout << "\n";
+
+    bool temCiclo = verificaCiclo(grafo);
+    if (temCiclo) {
+        cout << "O grafo contem ciclos." << endl;
+        cout << "\n";
+    } else {
+        cout << "O grafo nao contem ciclos." << endl;
+        cout << "\n";
+    }
 
     liberaMatriz(grafo);
     liberaMatriz(grafoIncidencia);
