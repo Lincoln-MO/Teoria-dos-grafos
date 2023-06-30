@@ -155,3 +155,17 @@ Passo 5: Conclusão
 
 1. Quando encontramos uma combinação que preenche todas as células do tabuleiro sem violar as regras do Sudoku, temos uma solução.
 2. Todos os números estarão corretamente posicionados, sem repetições em linhas, colunas ou subgrades.
+
+## REFERÊNCIAS
+
+[1]. Feofiloff , Paulo. Coloração de vértices. Encontrado em: <https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/vertex-coloring.html> Acesso em: 27 jun. 2023. 
+
+[2]. Coloração do gráfico. Encontrado em: <https://en.wikipedia.org/wiki/Graph_coloring> Acesso em: 27 jun. 2023. 
+
+[3]. Gouveia, Thiago & Cunha, Nailson & Maciel Jr, Paulo Ditarso. (2013). TÉCNICAS DE COLORAÇÃO DE GRAFOS APLICADAS À RESOLUÇÃO DE QUEBRA-CABEÇAS DO TIPO SUDOKU. Encontrado em: <https://www.researchgate.net/publication/260517476_TECNICAS_DE_COLORACAO_DE_GRAFOS_APLICADAS_A_RESOLUCAO_DE_QUEBRA-CABECAS_DO_TIPO_SUDOKU> Acesso em: 28 jun. 2023. 
+
+[4]. AIRES, Victória & FREITAS, Rosiane. Problemas de rotulação graciosa e colorações: algoritmos, complexidade e aplicações. Disponível em: <http://www.din.uem.br/sbpo/sbpo2016/pdf/156677.pdf>. Acesso em: 28 jun. 2023.
+
+[5]. FERREIRA, Marcelo Rego & GAMBINI, Haroldo Santos. Algoritmos para o Problema de Coloração de Grafos. Disponível em: <http://www.decom.ufop.br/menotti/paa111/files/PCC104-111-ars-11.1-MarceloFerreiraRego.pdf>. Acesso em: 28 jun. 2023.
+
+[6]. SILVEIRA ARAÚJO NETO, A.; JOSÉ NEGREIROS GOMES, M. PROBLEMA E ALGORITMOS DE COLORAÇÃO EM GRAFOS - EXATOS E HEURÍSTICOS. Disponível em: <https://revistas.unifacs.br/index.php/rsc/article/view/3028/0>. Acesso em: 30 jun. 2023. 
